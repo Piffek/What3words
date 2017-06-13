@@ -7,7 +7,6 @@ use Wrapper\What3words\W3wOld\Geocoder;
 class What3wordsWrapper{
 	
 	protected $geocoder;
-	protected $key;
 	
 	public function __construct($key){
 	
