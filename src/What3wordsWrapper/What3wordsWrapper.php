@@ -7,10 +7,11 @@ use Wrapper\What3words\W3wOld\Geocoder;
 class What3wordsWrapper{
 	
 	protected $geocoder;
+	protected $key;
 	
-	public function __construct(Geocoder $geocoder){
-		
-		$this->geocoder = $geocoder;
+	public function __construct($key){
+	
+		$this->geocoder = new Geocoder($key);
 		
 	}
 	

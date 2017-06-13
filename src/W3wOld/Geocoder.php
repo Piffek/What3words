@@ -11,7 +11,7 @@
  * @package What3words\Geocoder
  */
 
-namespace Wrapper\What3words\W3wOld\Geocoder;
+namespace Wrapper\What3words\W3wOld;
 
 use Wrapper\What3words\W3wOld\AbstractWrapper;
 

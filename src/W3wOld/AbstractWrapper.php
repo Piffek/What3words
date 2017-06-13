@@ -11,7 +11,7 @@
  * @package What3words\Geocoder
  */
 
-namespace Wrapper\What3words\W3wOld\AbstractWrapper;
+namespace Wrapper\What3words\W3wOld;
 
 abstract class AbstractWrapper {
     const TIMEOUT = 10;
