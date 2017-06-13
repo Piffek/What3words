@@ -1,0 +1,7 @@
+{
+	"name" : "client/w3w",
+	"description" : "client for application",
+	"type" : "laravel",
+	"license" : "MIT",
+	"minimum-stability" : "dev"
+}
