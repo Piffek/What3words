@@ -1,32 +1,31 @@
 {
-	"name": "piffek/what3words",
-	"description": "dev-friendly client for what3words.com API",
-	"type": "package",
-	"license": "MIT",
-    "support": {
-        "issues": "https://github.com/piffek/What3words/issues",
-        "source": "https://github.com/piffek/What3words"
-    },
-    "keywords": [
-        "geocoding",
-        "what3words",
-        "3 words address"
-    ],
-    "authors": [
-        {
-            "name": "Patryk Piwko",
-            "email": "patrykpiwko123412@gmail.com",
-            "homepage": "http://github.com/piffek",
-            "role": "Developer"
-        }
-    ],
-    "require": {
-        "php": ">=7.0"
-    },
-    "autoload": {
-        "psr-4": {
-            "Piffek\\What3words\\": "src"
-        }
-    },
-    "minimum-stability": "stable"
+	"name" : "piffek/what3words",
+	"description" : "dev-friendly client for what3words.com API",
+	"type" : "package",
+	"license" : "MIT",
+	"support" : {
+		"issues" : "https://github.com/piffek/What3words/issues",
+		"source" : "https://github.com/piffek/What3words"
+	},
+	"keywords" : [
+		"geocoding",
+		"what3words",
+		"3 words address"
+	],
+	"authors" : [{
+			"name" : "Patryk Piwko",
+			"email" : "patrykpiwko123412@gmail.com",
+			"homepage" : "http://github.com/piffek",
+			"role" : "Developer"
+		}
+	],
+	"require" : {
+		"php" : ">=7.0"
+	},
+	"autoload" : {
+		"psr-4" : {
+			"Piffek\\What3words\\" : "src"
+		}
+	},
+	"minimum-stability" : "stable"
 }

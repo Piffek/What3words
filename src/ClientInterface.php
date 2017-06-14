@@ -2,7 +2,7 @@
 
 namespace Piffek\What3words;
 
-interface Client
+interface ClientInterface
 {
     /**
      * Translate 3-word address to array of lat & lng coordinates (AKA forward geocoding).
