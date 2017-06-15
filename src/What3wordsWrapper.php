@@ -25,7 +25,15 @@ class What3wordsWrapper implements ClientInterface
 		
 		$res = json_decode($this->curlOptions($sprintURL), true);
 
-		return $res['geometry'];
+		if(isset($res['geometry'])){
+			
+			return $res['geometry'];
+			
+		}else{
+			
+			throw new \Exception($res['status']['message']);
+			
+		}
 		
 	}
 	
