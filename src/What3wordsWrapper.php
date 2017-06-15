@@ -6,6 +6,7 @@ use Piffek\What3words\ClientInterface;
 class What3wordsWrapper implements ClientInterface
 {
 	protected $key;
+	protected $lan = array();
 	
 	public function __construct(string $key){
 		
@@ -15,6 +16,8 @@ class What3wordsWrapper implements ClientInterface
 
 	
 	public function wordsToCoords($words, $language = 'en') : array{
+		
+		$this->hasLanguage($language);
 
 		$url = "https://api.what3words.com/v2/forward?addr=%s&key=%s&lang=%s&format=json&display=full";
 
@@ -28,6 +31,8 @@ class What3wordsWrapper implements ClientInterface
 	
 	public function coordsToWords($lat, $lng, $language = 'en') : string{
 
+		$this->hasLanguage($language);
+		
 		$url = 'https://api.what3words.com/v2/reverse?coords=%s,%s&key=%s&lang=%s&format=json&display=full';
 		
 		$sprintURL = sprintf($url, $lat, $lng, $this->key, $language);
@@ -77,6 +82,26 @@ class What3wordsWrapper implements ClientInterface
 		curl_close($curl);
 		
 		return $response;
+	}
+	
+	
+	public function hasLanguage($language){
+		
+		
+		$allLanguages = $this->getLanguages();
+		
+		foreach ($allLanguages['languages'] as $lang){
+			
+			$this->lan[] = $lang['code'];
+			
+		}
+			
+		if(!in_array($language, $this->lan)){
+			
+			throw new \Exception('Language not found');
+			
+		}
+		
 	}
 	
 }
