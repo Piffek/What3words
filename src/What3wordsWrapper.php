@@ -25,15 +25,7 @@ class What3wordsWrapper implements ClientInterface
 		
 		$res = json_decode($this->curlOptions($sprintURL), true);
 
-		if(isset($res['geometry'])){
-			
-			return $res['geometry'];
-			
-		}else{
-			
-			throw new \Exception($res['status']['message']);
-			
-		}
+		return $this->whatReturnThisMethod($res);
 		
 	}
 	
@@ -72,6 +64,7 @@ class What3wordsWrapper implements ClientInterface
 	}
 	
 	private function curlOptions($sprintURL){
+		
 		$curl = curl_init();
 		
 		curl_setopt_array($curl, array(
@@ -93,8 +86,7 @@ class What3wordsWrapper implements ClientInterface
 	}
 	
 	
-	public function hasLanguage($language){
-		
+	private function hasLanguage($language){
 		
 		$allLanguages = $this->getLanguages();
 		
@@ -110,6 +102,19 @@ class What3wordsWrapper implements ClientInterface
 			
 		}
 		
+	}
+	
+	private function whatReturnThisMethod($res){
+		
+		if(isset($res['geometry'])){
+			
+			return $res['geometry'];
+			
+		}else{
+			
+			throw new \Exception($res['status']['message']);
+			
+		}
 	}
 	
 }
