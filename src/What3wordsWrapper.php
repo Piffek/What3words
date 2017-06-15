@@ -28,7 +28,7 @@ class What3wordsWrapper implements ClientInterface
 	
 	public function coordsToWords($lat, $lng, $language = 'en') : string{
 
-		$url = "https://api.what3words.com/v2/reverse?coords=%s,%s&key=%s&lang=%s&format=json&display=full";
+		$url = 'https://api.what3words.com/v2/reverse?coords=%s,%s&key=%s&lang=%s&format=json&display=full';
 		
 		$sprintURL = sprintf($url, $lat, $lng, $this->key, $language);
 		
@@ -39,6 +39,14 @@ class What3wordsWrapper implements ClientInterface
 	}
 	
 	public function getLanguages() : array{
+		
+		$url = 'https://api.what3words.com/v2/languages?key=%s';
+		
+		$sprintURL = sprintf($url, $this->key);
+		
+		$language = json_decode($this->curlOptions($sprintURL), true);
+		
+		return $language;
 		
 	}
 	
