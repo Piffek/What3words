@@ -51,9 +51,7 @@ class What3wordsWrapper implements ClientInterface
 		
 		$sprintURL = sprintf($url, $this->key);
 		
-		$language = json_decode($this->curlOptions($sprintURL), true);
-		
-		return $language;
+		return $this->curlOptions($sprintURL);
 		
 	}
 	
@@ -63,9 +61,7 @@ class What3wordsWrapper implements ClientInterface
 		
 		$sprintURL = sprintf($url, $words, $nearby['0'], $nearby['1'], $this->key);
 		
-		$blend = json_decode($this->curlOptions($sprintURL), true);
-		
-		return $blend;
+		return $this->curlOptions($sprintURL);
 	}
 	
 	public function autosuggest($words, array $nearby = null, $radius = 10) : array{
@@ -74,9 +70,8 @@ class What3wordsWrapper implements ClientInterface
 		
 		$sprintURL = sprintf($url, $words, $nearby['0'], $nearby['1'], $radius, $this->key);
 		
-		$suggest = json_decode($this->curlOptions($sprintURL), true);
+		return $this->curlOptions($sprintURL);
 		
-		return $suggest;
 	}
 	
 	private function curlOptions($sprintURL){
@@ -98,7 +93,7 @@ class What3wordsWrapper implements ClientInterface
 		
 		curl_close($curl);
 		
-		return $response;
+		return json_decode($response, true);
 	}
 	
 	
