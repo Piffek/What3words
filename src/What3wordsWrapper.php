@@ -8,6 +8,8 @@ class What3wordsWrapper implements ClientInterface
 	protected $key;
 	protected $lan = array();
 	
+	const ENDPOINT = 'https://api.what3words.com/v2';
+	
 	public function __construct(string $key){
 		
 		$this->key = $key;
@@ -19,7 +21,7 @@ class What3wordsWrapper implements ClientInterface
 		
 		$this->hasLanguage($language);
 
-		$url = "https://api.what3words.com/v2/forward?addr=%s&key=%s&lang=%s&format=json&display=full";
+		$url = self::ENDPOINT . "/forward?addr=%s&key=%s&lang=%s&format=json&display=full";
 
 		$sprintURL = sprintf($url, $words, $this->key, $language);
 		
@@ -33,7 +35,7 @@ class What3wordsWrapper implements ClientInterface
 
 		$this->hasLanguage($language);
 		
-		$url = 'https://api.what3words.com/v2/reverse?coords=%s,%s&key=%s&lang=%s&format=json&display=full';
+		$url = self::ENDPOINT . '/reverse?coords=%s,%s&key=%s&lang=%s&format=json&display=full';
 		
 		$sprintURL = sprintf($url, $lat, $lng, $this->key, $language);
 		
@@ -57,7 +59,7 @@ class What3wordsWrapper implements ClientInterface
 	
 	public function getBlend($words, array $nearby = null) : array{
 		
-		$url = 'https://api.what3words.com/v2/standardblend?addr=%s&lang=en&focus=%s,%s&format=json&key=%s';
+		$url = self::ENDPOINT . '/standardblend?addr=%s&lang=en&focus=%s,%s&format=json&key=%s';
 		
 		$sprintURL = sprintf($url, $words, $nearby['0'], $nearby['1'], $this->key);
 		
@@ -68,6 +70,13 @@ class What3wordsWrapper implements ClientInterface
 	
 	public function autosuggest($words, array $nearby = null, $radius = 10) : array{
 		
+		$url = self::ENDPOINT . '/autosuggest?addr=%s&clip=radius(%s,%s,%s)&lang=en&key=%s';
+		
+		$sprintURL = sprintf($url, $words, $nearby['0'], $nearby['1'], $radius, $this->key);
+		
+		$suggest = json_decode($this->curlOptions($sprintURL), true);
+		
+		return $suggest;
 	}
 	
 	private function curlOptions($sprintURL){
