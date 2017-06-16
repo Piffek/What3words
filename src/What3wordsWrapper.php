@@ -25,7 +25,7 @@ class What3wordsWrapper implements ClientInterface
 
 		$sprintURL = sprintf($url, $words, $this->key, $language);
 		
-		$res = json_decode($this->curlOptions($sprintURL), true);
+		$res = $this->curlOptions($sprintURL);
 
 		return $this->whatReturnThisMethod($res);
 		
@@ -39,7 +39,7 @@ class What3wordsWrapper implements ClientInterface
 		
 		$sprintURL = sprintf($url, $lat, $lng, $this->key, $language);
 		
-		$word = json_decode($this->curlOptions($sprintURL), true);
+		$word = $this->curlOptions($sprintURL);
 		
 		return $word['words'];
 		
@@ -107,12 +107,17 @@ class What3wordsWrapper implements ClientInterface
 			
 		}
 			
+		return $this->errorDuringLanguageNotFound($language);
+		
+	}
+	
+	private function errorDuringLanguageNotFound($language){
+		
 		if(!in_array($language, $this->lan)){
 			
 			throw new \Exception('Language not found');
 			
 		}
-		
 	}
 	
 	private function whatReturnThisMethod($res){
