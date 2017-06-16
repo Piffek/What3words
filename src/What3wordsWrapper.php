@@ -23,15 +23,15 @@ class What3wordsWrapper implements ClientInterface
 
 		$sprintURL = sprintf($url, $words, $this->key, $language);
 		
-		$res = $this->curlOptions($sprintURL);
+		$coords= $this->curlOptions($sprintURL);
 		
-		return $res['geometry'];
+		return $this->validateMethod($coords, 'geometry');
 		
 	}
 	
 	public function coordsToWords($lat, $lng, $language = 'en') : string{
 
-		$this->hasLanguage($language);
+		//$this->hasLanguage($language);
 		
 		$url = self::ENDPOINT . '/reverse?coords=%s,%s&key=%s&lang=%s&format=json&display=full';
 		
@@ -39,7 +39,7 @@ class What3wordsWrapper implements ClientInterface
 		
 		$word = $this->curlOptions($sprintURL);
 		
-		return $word['words'];
+		return $this->validateMethod($word, 'words');
 		
 	}
 	
@@ -116,6 +116,20 @@ class What3wordsWrapper implements ClientInterface
 			throw new \Exception('Language not found');
 			
 		}
+	}
+	
+	private function validateMethod($resource, $what){
+		
+		if(isset($resource[$what])){
+			
+			return $resource[$what];
+			
+		}else{
+			
+			throw new \Exception($resource['message']);
+			
+		}
+		
 	}
 	
 	
