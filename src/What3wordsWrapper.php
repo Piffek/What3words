@@ -57,6 +57,13 @@ class What3wordsWrapper implements ClientInterface
 	
 	public function getBlend($words, array $nearby = null) : array{
 		
+		$url = 'https://api.what3words.com/v2/standardblend?addr=%s&lang=en&focus=%s,%s&format=json&key=%s';
+		
+		$sprintURL = sprintf($url, $words, $nearby['0'], $nearby['1'], $this->key);
+		
+		$blend = json_decode($this->curlOptions($sprintURL), true);
+		
+		return $blend;
 	}
 	
 	public function autosuggest($words, array $nearby = null, $radius = 10) : array{
