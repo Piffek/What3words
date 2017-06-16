@@ -25,7 +25,7 @@ class What3wordsWrapper implements ClientInterface
 		
 		$coords= $this->curlOptions($sprintURL);
 		
-		return $this->validateMethod($coords, 'geometry');
+		return $this->validateMethod($coords, 'geometry', $language);
 		
 	}
 	
@@ -39,7 +39,7 @@ class What3wordsWrapper implements ClientInterface
 		
 		$word = $this->curlOptions($sprintURL);
 		
-		return $this->validateMethod($word, 'words');
+		return $this->validateMethod($word, 'words', $language);
 		
 	}
 	
@@ -118,13 +118,17 @@ class What3wordsWrapper implements ClientInterface
 		}
 	}
 	
-	private function validateMethod($resource, $what){
+	private function validateMethod($resource, $what, $language){
 		
 		if(isset($resource[$what])){
 			
 			return $resource[$what];
 			
-		}else{
+		}else if(!isset($resource['message'])){
+			
+			$this->hasLanguage($language);
+			
+		}else if(!isset($resource[$what])){
 			
 			throw new \Exception($resource['message']);
 			
