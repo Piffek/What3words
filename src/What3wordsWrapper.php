@@ -19,15 +19,13 @@ class What3wordsWrapper implements ClientInterface
 	
 	public function wordsToCoords($words, $language = 'en') : array{
 		
-		$this->hasLanguage($language);
-
 		$url = self::ENDPOINT . "/forward?addr=%s&key=%s&lang=%s&format=json&display=full";
 
 		$sprintURL = sprintf($url, $words, $this->key, $language);
 		
 		$res = $this->curlOptions($sprintURL);
-
-		return $this->whatReturnThisMethod($res);
+		
+		return $res['geometry'];
 		
 	}
 	
@@ -120,17 +118,5 @@ class What3wordsWrapper implements ClientInterface
 		}
 	}
 	
-	private function whatReturnThisMethod($res){
-		
-		if(isset($res['geometry'])){
-			
-			return $res['geometry'];
-			
-		}else{
-			
-			throw new \Exception($res['status']['message']);
-			
-		}
-	}
 	
 }
